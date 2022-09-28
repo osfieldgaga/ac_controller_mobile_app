@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "426475784807",
+    "firebase_url": "https://smart-ac-controller-edf1e-default-rtdb.firebaseio.com",
+    "project_id": "smart-ac-controller-edf1e",
+    "storage_bucket": "smart-ac-controller-edf1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426475784807:android:260494cf42c8090e41a2c2",
+        "android_client_info": {
+          "package_name": "com.example.school_project_ac_controller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426475784807-5qg6mks0mlji8gemehvvsqkdr63hslvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn24aguhA5GKTtgtCJFwSr7wMBiWv44po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426475784807-5qg6mks0mlji8gemehvvsqkdr63hslvn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "426475784807-76bapkt3arrd9rkdav97qp7g0pqe5sj4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.schoolProjectAcController"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
