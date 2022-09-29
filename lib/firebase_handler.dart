@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_database/firebase_database.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 const deviceID = "TnOEDs0xzk29y6vlTNVhfA";
 
@@ -14,17 +14,15 @@ class FirebaseHandler {
 
 //FirebaseHandler({required this.email, required this.password});
 
+  final firebaseDatabase = FirebaseDatabase.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref(deviceID);
 
+  void setTemperature({required temperature}) async {
+    await ref.update({
+      "temperature": temperature,
+    });
 
-final firebaseDatabase = FirebaseDatabase.instance;
-DatabaseReference ref = FirebaseDatabase.instance.ref(deviceID);
-
-void setTemperature ({required temperature}) async {
-  await ref.update({
-    "temperature": temperature,
-  });
-
-  Fluttertoast.showToast(
+    Fluttertoast.showToast(
         msg: "changed temp",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
@@ -32,36 +30,69 @@ void setTemperature ({required temperature}) async {
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0);
-}
-
-void changeState ({required state}) async {
-  await ref.update({
-    "state": state,
-  });
-}
-
-void changeOperationMode ({required opMode}) async {
-  await ref.update({
-    "operation_mode": opMode,
-  });
-}
-
-static Future<String> signIn({required String email, required String password}) async {
-  try {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-    Fluttertoast.showToast(
-        msg: "Signed in",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
-    return "Signed in";
-  } on FirebaseAuthException catch (e) {
-    return e.message.toString();
   }
-}
 
+  Widget? readHumidity() {
+    DatabaseReference humRef =
+        FirebaseDatabase.instance.ref(deviceID + '/parameters/room_humidity');
+    StreamBuilder(
+        stream: humRef.onValue,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                SvgPicture.asset('assets/icons/drop.svg'),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(snapshot.data.toString(),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Euclid',
+                        fontWeight: FontWeight.w700)),
+                const Text("Air humidity",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Euclid',
+                        fontWeight: FontWeight.w200)),
+              ],
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
+
+  void changeState({required state}) async {
+    await ref.update({
+      "state": state,
+    });
+  }
+
+  void changeOperationMode({required opMode}) async {
+    await ref.update({
+      "operation_mode": opMode,
+    });
+  }
+
+  static Future<String> signIn(
+      {required String email, required String password}) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Fluttertoast.showToast(
+          msg: "Signed in",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return "Signed in";
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    }
+  }
 }

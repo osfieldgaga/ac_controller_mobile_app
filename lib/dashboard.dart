@@ -48,153 +48,272 @@ class _DashboardState extends State<Dashboard> {
           vertical: 32.0,
         ),
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 32,),
-              Transform.scale(
-                scale: 1.5,
-                child: SleekCircularSlider(
-                    min: 20,
-                    max: 30,
-                    initialValue: 24,
-                    appearance: CircularSliderAppearance(
-                        customWidths: CustomSliderWidths(handlerSize: 10, progressBarWidth: 10),
-                        customColors: CustomSliderColors(
-                          trackColor: Colors.white,
-                          progressBarColors: [Color(0xFF00A3FF), Color(0xFF74CDFF)],
-                          dotColor: Color(0xFF00A3FF),
-                          hideShadow: true,
-                        )),
-                    innerWidget: (double value) {
-                      return Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              value.toInt().toString(),
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 32,
-                                  fontFamily: 'Euclid',
-                                  fontWeight: FontWeight.w700),
+          child: Stack(children: <Widget>[
+            //SvgPicture.asset('assets/bg.svg'),
+            Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Transform.scale(
+                    scale: 1.5,
+                    child: SleekCircularSlider(
+                        min: 20,
+                        max: 30,
+                        initialValue: 24,
+                        appearance: CircularSliderAppearance(
+                            customWidths: CustomSliderWidths(
+                                handlerSize: 10, progressBarWidth: 10),
+                            customColors: CustomSliderColors(
+                              trackColor: Color(0xFFE9F7FF),
+                              progressBarColors: [
+                                Color(0xFF00A3FF),
+                                Color(0xFF74CDFF)
+                              ],
+                              dotColor: Color(0xFF00A3FF),
+                              hideShadow: true,
+                            )),
+                        innerWidget: (double value) {
+                          return Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  value.toInt().toString(),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 32,
+                                      fontFamily: 'Euclid',
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                const Text("°C",
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontFamily: 'Euclid',
+                                        fontWeight: FontWeight.w700))
+                              ],
                             ),
-                            const Text("°C",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontFamily: 'Euclid',
-                                    fontWeight: FontWeight.w700))
-                          ],
-                        ),
-                      );
-                    },
-                    onChange: (double value) {
-                      print(value);
-                    },
-                    onChangeEnd: (double endValue) {
-                      // ucallback providing an ending value (when a pan gesture ends)
-                      setState(() {
-                        sliderTemp = endValue;
-                        firebanseHandler.setTemperature(temperature: endValue);
-                      });
-                    }),
+                          );
+                        },
+                        onChange: (double value) {
+                          print(value);
+                        },
+                        onChangeEnd: (double endValue) {
+                          // ucallback providing an ending value (when a pan gesture ends)
+                          setState(() {
+                            sliderTemp = endValue;
+                            firebanseHandler.setTemperature(
+                                temperature: endValue.toInt());
+                          });
+                        }),
+                  ),
+
+                  SvgPicture.asset(
+                    operationMode == true
+                        ? 'assets/icons/Lock.svg'
+                        : 'assets/icons/Unlock.svg',
+                    semanticsLabel: 'on/off',
+                    color: Color(0xFF00A3FF),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    operationMode == true
+                        ? 'Cannot change temperature in auto mode'
+                        : '',
+                    style: TextStyle(
+                        color: Colors.grey[500], fontFamily: 'Euclid'),
+                  ),
+
+                  // Text(
+                  //   'Temperature',
+                  //   style: TextStyle(color: Colors.grey[500]),
+                  // ),
+                  // const SizedBox(
+                  //   height: 16,
+                  // ),
+                  // Text(
+                  //   sliderTemp.toInt().toString(),
+                  //   style: const TextStyle(
+                  //     fontSize: 32,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 16,
+                  // ),
+                  // Slider(
+                  //   divisions: 14,
+                  //   value: sliderTemp,
+                  //   onChanged: (newValue) {
+                  //     setState(() {
+                  //       sliderTemp = newValue;
+                  //       firebanseHandler.setTemperature(temperature: newValue);
+                  //     });
+                  //   },
+                  //   min: 16,
+                  //   max: 30,
+                  // ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+
+                  Text(
+                    'Operation Mode',
+                    style: TextStyle(
+                        color: Colors.grey[500], fontFamily: 'Euclid'),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    operationMode == true ? "Automatic Mode" : "Manual Mode",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontFamily: 'Euclid',
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Transform.scale(
+                    scale: 1.3,
+                    child: Switch(
+                      value: operationMode,
+                      onChanged: (newOperationMode) {
+                        setState(() {
+                          operationMode = newOperationMode;
+                          firebanseHandler.changeOperationMode(
+                              opMode: newOperationMode);
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    'AC State',
+                    style: TextStyle(
+                        color: Colors.grey[500], fontFamily: 'Euclid'),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(60, 60),
+                          shape: const CircleBorder(),
+                          backgroundColor: Colors.white,
+                          elevation: 5),
+                      onPressed: () {
+                        setState(() {
+                          acState = !acState;
+                          firebanseHandler.changeState(
+                              state: acState == true ? 1 : 0);
+                        });
+                      },
+                      child: Transform.scale(
+                        scale: 1.3,
+                        child: SvgPicture.asset('assets/icons/Turn-off.svg',
+                            semanticsLabel: 'on/off'),
+                      )),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    acState == true ? "Turn On AC" : "Turn Off AC",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Euclid',
+                        fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Text(
+                    'Stats',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Euclid',
+                        fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          
+                          firebanseHandler.readHumidity() ??
+                              Column(
+                                children: <Widget>[
+                                  SvgPicture.asset('assets/icons/drop.svg'),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text("--",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontFamily: 'Euclid',
+                                          fontWeight: FontWeight.w700)),
+                                  const Text("Air humidity",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontFamily: 'Euclid',
+                                          fontWeight: FontWeight.w200)),
+                                ],
+                              ),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          SvgPicture.asset('assets/icons/thermometer.svg'),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              const Text("31",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontFamily: 'Euclid',
+                                      fontWeight: FontWeight.w700)),
+                              const Text("°C",
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontFamily: 'Euclid',
+                                      fontWeight: FontWeight.w700))
+                            ],
+                          ),
+                          const Text(
+                            "Outside\nTemperature",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'Euclid',
+                                fontWeight: FontWeight.w200),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
-              // Text(
-              //   'Temperature',
-              //   style: TextStyle(color: Colors.grey[500]),
-              // ),
-              // const SizedBox(
-              //   height: 16,
-              // ),
-              // Text(
-              //   sliderTemp.toInt().toString(),
-              //   style: const TextStyle(
-              //     fontSize: 32,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 16,
-              // ),
-              // Slider(
-              //   divisions: 14,
-              //   value: sliderTemp,
-              //   onChanged: (newValue) {
-              //     setState(() {
-              //       sliderTemp = newValue;
-              //       firebanseHandler.setTemperature(temperature: newValue);
-              //     });
-              //   },
-              //   min: 16,
-              //   max: 30,
-              // ),
-              // const SizedBox(
-              //   height: 32,
-              // ),
-              Icon(iCONS)
-              Text(
-                'Operation Mode',
-                style: TextStyle(color: Colors.grey[500]),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                operationMode == true ? "Automatic Mode" : "Manual Mode",
-                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 24,
-                                  fontFamily: 'Euclid',
-                                  fontWeight: FontWeight.w400),
-              ),
-              Transform.scale(
-                scale: 1.5,
-                child: Switch(
-                  value: operationMode,
-                  onChanged: (newOperationMode) {
-                    setState(() {
-                      operationMode = newOperationMode;
-                      firebanseHandler.changeOperationMode(
-                          opMode: newOperationMode);
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Text(
-                'AC State',
-                style: TextStyle(color: Colors.grey[500]),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                acState == true ? "ON" : "OFF",
-                style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      acState = !acState;
-                      firebanseHandler.changeState(
-                          state: acState == true ? 1 : 0);
-                    });
-                  },
-                  child: Text(
-                    acState == true ? "Turn AC OFF" : "Turn AC ON",
-                    style: const TextStyle(),
-                  ))
-            ],
-          ),
+            )
+          ]),
         ),
       ),
       // } else {
