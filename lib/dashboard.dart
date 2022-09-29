@@ -225,7 +225,7 @@ class _DashboardState extends State<Dashboard> {
                     height: 16,
                   ),
                   Text(
-                    acState == true ? "Turn On AC" : "Turn Off AC",
+                    acState == true ? "Turn Off AC" : "Turn On AC",
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -243,7 +243,7 @@ class _DashboardState extends State<Dashboard> {
                         fontFamily: 'Euclid',
                         fontWeight: FontWeight.w700),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Row(
@@ -251,28 +251,26 @@ class _DashboardState extends State<Dashboard> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          
-                          firebanseHandler.readHumidity() ??
-                              Column(
-                                children: <Widget>[
-                                  SvgPicture.asset('assets/icons/drop.svg'),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text("--",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontFamily: 'Euclid',
-                                          fontWeight: FontWeight.w700)),
-                                  const Text("Air humidity",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontFamily: 'Euclid',
-                                          fontWeight: FontWeight.w200)),
-                                ],
+                          Column(
+                            children: <Widget>[
+                              SvgPicture.asset('assets/icons/drop.svg'),
+                              const SizedBox(
+                                height: 4,
                               ),
+                              const Text("--",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontFamily: 'Euclid',
+                                      fontWeight: FontWeight.w700)),
+                              const Text("Air humidity",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontFamily: 'Euclid',
+                                      fontWeight: FontWeight.w200)),
+                            ],
+                          ),
                         ],
                       ),
                       Column(
@@ -282,15 +280,15 @@ class _DashboardState extends State<Dashboard> {
                             height: 4,
                           ),
                           Row(
-                            children: <Widget>[
-                              const Text("31",
+                            children: const <Widget>[
+                              Text("--",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontFamily: 'Euclid',
                                       fontWeight: FontWeight.w700)),
-                              const Text("°C",
-                                  style: const TextStyle(
+                              Text("°C",
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontFamily: 'Euclid',

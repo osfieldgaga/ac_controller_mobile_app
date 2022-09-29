@@ -32,38 +32,19 @@ class FirebaseHandler {
         fontSize: 16.0);
   }
 
-  Widget? readHumidity() {
-    DatabaseReference humRef =
-        FirebaseDatabase.instance.ref(deviceID + '/parameters/room_humidity');
-    StreamBuilder(
-        stream: humRef.onValue,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: <Widget>[
-                SvgPicture.asset('assets/icons/drop.svg'),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(snapshot.data.toString(),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Euclid',
-                        fontWeight: FontWeight.w700)),
-                const Text("Air humidity",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Euclid',
-                        fontWeight: FontWeight.w200)),
-              ],
-            );
-          } else {
-            return Container();
-          }
-        });
-  }
+  // Widget? readHumidity() {
+  //   DatabaseReference humRef =
+  //       FirebaseDatabase.instance.ref(deviceID + '/parameters/room_humidity');
+  //   StreamBuilder(
+  //       stream: humRef.onValue,
+  //       builder: (context, snapshot) {
+  //         if (snapshot.hasData) {
+  //           return ;
+  //         } else {
+  //           return Container();
+  //         }
+  //       });
+  // }
 
   void changeState({required state}) async {
     await ref.update({

@@ -40,6 +40,7 @@ dependencies:
   firebase_database: ^9.0.16
   sleek_circular_slider : ^2.0.1
   flutter_svg: ^1.1.1+5
+  flutter_launcher_icons: "^0.10.0"
   # iosstyleswitch: ^0.0.4
 
 
@@ -56,7 +57,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/app_icons/ic_launcher_big.png"
 # The following section is specific to Flutter.
 flutter:
 
