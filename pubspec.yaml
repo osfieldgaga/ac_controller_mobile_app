@@ -41,6 +41,8 @@ dependencies:
   sleek_circular_slider : ^2.0.1
   flutter_svg: ^1.1.1+5
   flutter_launcher_icons: "^0.10.0"
+  flutter_bluetooth_serial: ^0.3.2
+  shared_preferences: ^2.0.15
   # iosstyleswitch: ^0.0.4
 
 
@@ -77,6 +79,9 @@ flutter:
     - assets/bg.svg
     - assets/icons/drop.svg
     - assets/icons/thermometer.svg
+    - assets/icons/settings.svg
+    - assets/icons/wifi.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

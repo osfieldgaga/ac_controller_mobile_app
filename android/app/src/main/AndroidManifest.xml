@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.school_project_ac_controller">
    <application
-        android:label="school_project_ac_controller"
+        android:label="Smart AC Controller"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

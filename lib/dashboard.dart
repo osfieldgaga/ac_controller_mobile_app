@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_project_ac_controller/settings.dart';
 import 'firebase_handler.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +26,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
         title: Center(
@@ -194,43 +196,96 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Text(
-                    'AC State',
-                    style: TextStyle(
-                        color: Colors.grey[500], fontFamily: 'Euclid'),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(60, 60),
-                          shape: const CircleBorder(),
-                          backgroundColor: Colors.white,
-                          elevation: 5),
-                      onPressed: () {
-                        setState(() {
-                          acState = !acState;
-                          firebanseHandler.changeState(
-                              state: acState == true ? 1 : 0);
-                        });
-                      },
-                      child: Transform.scale(
-                        scale: 1.3,
-                        child: SvgPicture.asset('assets/icons/Turn-off.svg',
-                            semanticsLabel: 'on/off'),
-                      )),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    acState == true ? "Turn Off AC" : "Turn On AC",
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Euclid',
-                        fontWeight: FontWeight.w400),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            'Settings',
+                            style: TextStyle(
+                                color: Colors.grey[500], fontFamily: 'Euclid'),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(60, 60),
+                                  shape: const CircleBorder(),
+                                  backgroundColor: Colors.white,
+                                  elevation: 5),
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const SettingsPage(),
+                                    ),
+                                  );
+                                });
+                              },
+                              child: Transform.scale(
+                                scale: 1.3,
+                                child: SvgPicture.asset(
+                                    'assets/icons/settings.svg',
+                                    semanticsLabel: 'on/off'),
+                              )),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            "",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontFamily: 'Euclid',
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            'AC State',
+                            style: TextStyle(
+                                color: Colors.grey[500], fontFamily: 'Euclid'),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(60, 60),
+                                  shape: const CircleBorder(),
+                                  backgroundColor: Colors.white,
+                                  elevation: 5),
+                              onPressed: () {
+                                setState(() {
+                                  acState = !acState;
+                                  firebanseHandler.changeState(
+                                      state: acState == true ? 1 : 0);
+                                });
+                              },
+                              child: Transform.scale(
+                                scale: 1.3,
+                                child: SvgPicture.asset(
+                                    'assets/icons/Turn-off.svg',
+                                    semanticsLabel: 'on/off'),
+                              )),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            acState == true ? "Turn Off AC" : "Turn On AC",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontFamily: 'Euclid',
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16,

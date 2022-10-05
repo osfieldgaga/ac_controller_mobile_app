@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_project_ac_controller/configuration.dart';
 import 'dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_handler.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Dashboard(title: 'Smart AC Controller'),
+      //home: const Dashboard(title: 'Smart AC Controller'),
+      home: const ConfigurationPage(),
     );
   }
 }

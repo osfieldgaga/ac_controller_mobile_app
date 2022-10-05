@@ -16,6 +16,7 @@ class FirebaseHandler {
 
   final firebaseDatabase = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref(deviceID);
+  DatabaseReference configRef = FirebaseDatabase.instance.ref(deviceID + "/configuration");
 
   void setTemperature({required temperature}) async {
     await ref.update({
@@ -58,6 +59,17 @@ class FirebaseHandler {
     });
   }
 
+  void sendAcConfig({required config}) async {
+    await configRef.update({
+      "ac_brand": config,
+      "configDone": true,
+      "nickname": "office",
+      "room_type": "normal_room"
+    });
+
+    print("Updated Firebase config");
+  }
+
   static Future<String> signIn(
       {required String email, required String password}) async {
     try {
@@ -76,4 +88,21 @@ class FirebaseHandler {
       return e.message.toString();
     }
   }
+
+  void resetDevice() async {
+  await ref.update({
+      "reset": true,
+    });
+
+    await configRef.update({
+      "ac_brand": "",
+      "configDone": false,
+      "nickname": "office",
+      "room_type": "normal_room"
+    });
+
+    print("Device reset!");
 }
+}
+
+
