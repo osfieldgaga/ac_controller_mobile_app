@@ -1,16 +1,7 @@
-# school_project_ac_controller
+# Smart AC Controller Mobile App
 
-A new Flutter project.
+The mobile app used to control the Smart AC Controller
 
-## Getting Started
+The app communicates with Firebase to send instructions, configurations and retrieve data from the device.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Architecture](https://user-images.githubusercontent.com/29616448/195311782-4423c9da-00a0-49c7-8e6b-16bfa1bb02c3.png)
